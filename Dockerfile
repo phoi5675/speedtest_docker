@@ -20,8 +20,11 @@ RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh | bash
 RUN apt-get install speedtest
 
 # Install cron
+COPY ./script.sh /script.sh
+RUN chmod 0644 /script.sh
+
 RUN printf '%s\n' \
-	'*/30 * * * * root speedtest --format=json-pretty --accept-license > /logs/$(date "+%Y-%m-%d_%H%M")_networktest.json' \
+	'*/30 * * * * root sh /script.sh' \
 	'#Empty line' > /etc/cron.d/cron_networktest
 
 RUN chmod 0644 /etc/cron.d/cron_networktest
