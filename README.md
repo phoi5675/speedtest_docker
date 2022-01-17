@@ -1,5 +1,5 @@
 # speedtest_docker
-run network speedtest every 30 minutes
+run network speedtest every 10 minutes
 
 # How to run
 1. make logs folder in root of your local repository

@@ -24,7 +24,7 @@ COPY ./script.sh /script.sh
 RUN chmod 0644 /script.sh
 
 RUN printf '%s\n' \
-	'*/30 * * * * root sh /script.sh' \
+	'*/10 * * * * root sh /script.sh' \
 	'#Empty line' > /etc/cron.d/cron_networktest
 
 RUN chmod 0644 /etc/cron.d/cron_networktest
