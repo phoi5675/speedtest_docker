@@ -1,6 +1,6 @@
 # speedtest_docker
 run network speedtest every 10 minutes
-
+![image](./graph.png)
 # How to run docker container
 1. make logs folder in root of your local repository
 1. build docker image
