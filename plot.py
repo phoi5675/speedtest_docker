@@ -29,16 +29,7 @@ def convert_to_Mbit(bitrate: int) -> float:
     return float(bitrate) / (1000 * 1000 / 8)
 
 
-if __name__ == '__main__':
-
-    json_files: list = read_logs()
-    json_files.sort()
-
-    jsons: list = read_jsons()
-
-    x_axis_timestamp: list = []
-    y_axis_download_spd: list = []
-    y_axis_upload_spd: list = []
+def make_axis_elem(jsons:list, x_axis: list, y_axis_downspd: list, y_axis_upspd: list) -> None:
     for json in jsons:
         date: str = json['timestamp']
 
@@ -53,9 +44,23 @@ if __name__ == '__main__':
         # print('date : {0}, down : {1:.2f}Mbps, up : {2:.2f}Mbps'.format(
         #     date_converted.strftime(local_format), convert_to_Mbit(down_speed), convert_to_Mbit(up_speed)))
 
-        x_axis_timestamp.append(date_converted.strftime(local_format))
-        y_axis_download_spd.append(convert_to_Mbit(down_speed))
-        y_axis_upload_spd.append((convert_to_Mbit(up_speed)))
+        x_axis.append(date_converted.strftime(local_format))
+        y_axis_downspd.append(convert_to_Mbit(down_speed))
+        y_axis_upspd.append((convert_to_Mbit(up_speed)))
+
+
+if __name__ == '__main__':
+
+    json_files: list = read_logs()
+    json_files.sort()
+
+    jsons: list = read_jsons()
+
+    x_axis_timestamp: list = []
+    y_axis_download_spd: list = []
+    y_axis_upload_spd: list = []
+
+    make_axis_elem(jsons, x_axis_timestamp, y_axis_download_spd, y_axis_upload_spd)
 
     plt.plot(x_axis_timestamp, y_axis_download_spd, x_axis_timestamp, y_axis_upload_spd)
     xlabels = x_axis_timestamp[::4]
