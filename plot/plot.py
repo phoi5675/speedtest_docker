@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from scipy.ndimage import gaussian_filter1d
 
-LOGS_DIR = '.\\logs\\' if os.name == 'nt' else './logs/'
+LOGS_DIR = '..\\logs\\' if os.name == 'nt' else '../logs/'
 
 local_format = "%H:%M"
 KST = +9
@@ -42,7 +42,7 @@ def make_axis_elem(jsons:list, x_axis: list, y_axis_downspd: list, y_axis_upspd:
 
         down_speed: int = int(json['download']['bandwidth'])
         up_speed: int = int(json['upload']['bandwidth'])
-        print('date : {0}, down : {1:.2f}Mbps, up : {2:.2f}Mbps'.format(
+        print('time : {0}, down : {1:.2f}Mbps, up : {2:.2f}Mbps'.format(
             date_converted.strftime(local_format), convert_to_Mbit(down_speed), convert_to_Mbit(up_speed)))
 
         x_axis.append(date_converted.strftime(local_format))
@@ -68,13 +68,13 @@ if __name__ == '__main__':
     y_upload_smoothed = gaussian_filter1d(y_axis_upload_spd, sigma=0.8)
 
     plt.title('Network speed test')
-    plt.plot(x_axis_timestamp, y_download_smoothed,
+    plt.plot(x_axis_timestamp, y_download_smoothed, '.',
              linewidth='3', label='Download speed')
-    plt.plot(x_axis_timestamp, y_upload_smoothed,
+    plt.plot(x_axis_timestamp, y_upload_smoothed, '.',
              linewidth='3', label='Upload speed')
     plt.legend(loc='upper left')
 
-    xlabels = x_axis_timestamp[::4]
+    xlabels = x_axis_timestamp[::8]
     plt.xlabel('timestamp')
     plt.xticks(ticks=x_axis_timestamp, rotation=45)
 

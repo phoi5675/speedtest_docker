@@ -12,11 +12,14 @@ run network speedtest every 10 minutes
 
   Script below is written based on windows. 
   ```shell
-  docker run -d --restart=always -v %cd%\logs:/logs \
+  docker run -d --restart=always \
+  -v %cd%\logs:/logs -v %cd%\plot:/plot \
 	--name netspdtest netspdtest
   ```
 
 # How to plot network speed
+
+If you use docker container, skip installing requirements.txt
 
 - install requirements.txt
 

@@ -32,4 +32,12 @@ RUN crontab /etc/cron.d/cron_networktest
 
 RUN mkdir -m 0755 /logs
 
+# Install python
+RUN apt-get install -y python3 python3-pip python3-dev
+RUN pip3 install --upgrade pip
+
+COPY ./plot/requirements.txt /requirements.txt
+RUN pip3 install -r /requirements.txt
+RUN rm requirements.txt
+
 CMD ["cron", "-f"]
