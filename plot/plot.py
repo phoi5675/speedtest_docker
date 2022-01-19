@@ -32,22 +32,25 @@ def convert_to_Mbit(bitrate: int) -> float:
 
 def make_axis_elem(jsons:list, x_axis: list, y_axis_downspd: list, y_axis_upspd: list) -> None:
     for json in jsons:
-        date: str = json['timestamp']
+        try:
+            date: str = json['timestamp']
 
-        from_date: datetime = datetime.strptime(
-            date,
-            "%Y-%m-%dT%H:%M:%SZ",
-        )
-        date_converted = from_date + timedelta(hours=KST)
+            from_date: datetime = datetime.strptime(
+                date,
+                "%Y-%m-%dT%H:%M:%SZ",
+            )
+            date_converted = from_date + timedelta(hours=KST)
 
-        down_speed: int = int(json['download']['bandwidth'])
-        up_speed: int = int(json['upload']['bandwidth'])
-        print('time : {0}, down : {1:.2f}Mbps, up : {2:.2f}Mbps'.format(
-            date_converted.strftime(local_format), convert_to_Mbit(down_speed), convert_to_Mbit(up_speed)))
+            down_speed: int = int(json['download']['bandwidth'])
+            up_speed: int = int(json['upload']['bandwidth'])
+            print('time : {0}, down : {1:.2f}Mbps, up : {2:.2f}Mbps'.format(
+                date_converted.strftime(local_format), convert_to_Mbit(down_speed), convert_to_Mbit(up_speed)))
 
-        x_axis.append(date_converted.strftime(local_format))
-        y_axis_downspd.append(convert_to_Mbit(down_speed))
-        y_axis_upspd.append((convert_to_Mbit(up_speed)))
+            x_axis.append(date_converted.strftime(local_format))
+            y_axis_downspd.append(convert_to_Mbit(down_speed))
+            y_axis_upspd.append((convert_to_Mbit(up_speed)))
+        except Exception as ex:
+            print(ex)
 
 
 if __name__ == '__main__':
