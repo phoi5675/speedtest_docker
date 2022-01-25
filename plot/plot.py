@@ -6,7 +6,7 @@ from scipy.ndimage import gaussian_filter1d
 
 LOGS_DIR = '..\\logs\\' if os.name == 'nt' else '../logs/'
 
-local_format = "%H:%M"
+local_format = "%m-%d-%H:%M"
 KST = +9
 
 
@@ -71,17 +71,21 @@ if __name__ == '__main__':
     y_upload_smoothed = gaussian_filter1d(y_axis_upload_spd, sigma=0.8)
 
     plt.title('Network speed test')
-    plt.plot(x_axis_timestamp, y_download_smoothed, '.',
-             linewidth='3', label='Download speed')
-    plt.plot(x_axis_timestamp, y_upload_smoothed, '.',
-             linewidth='3', label='Upload speed')
+    plt.plot(x_axis_timestamp, y_download_smoothed,
+             linewidth='2', label='Download speed')
+    plt.plot(x_axis_timestamp, y_upload_smoothed,
+             linewidth='2', label='Upload speed')
     plt.legend(loc='upper left')
 
-    xlabels = x_axis_timestamp[::8]
+    xlabels_interval = int(len(x_axis_timestamp) / 15)
+    xlabels = x_axis_timestamp[::xlabels_interval]
     plt.xlabel('timestamp')
-    plt.xticks(ticks=x_axis_timestamp, rotation=45)
+    plt.xticks(ticks=x_axis_timestamp, rotation=45, fontsize=5)
 
     plt.locator_params(axis='x', nbins=len(xlabels))
     plt.ylabel('speed(Mbps)')
+
+    ylabels = [mbps for mbps in range(0, 280, 15)]
+    plt.yticks(ticks=ylabels, fontsize=5)
 
     plt.savefig('./graph.png', dpi=300)
