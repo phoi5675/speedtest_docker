@@ -1,3 +1,5 @@
 # Log folder
 logs/*
 .idea/
+plot/*.csv
+plot/*.png
