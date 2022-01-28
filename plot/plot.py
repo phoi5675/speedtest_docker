@@ -20,8 +20,11 @@ def read_logs() -> list:
 def read_jsons() -> list:
     _jsons: list = []
     for json_file in json_files:
-        with open(LOGS_DIR + str(json_file), 'r') as j_file:
-            _jsons.append(json.load(j_file))
+        try:
+            with open(LOGS_DIR + str(json_file), 'r') as j_file:
+                _jsons.append(json.load(j_file))
+        except Exception as ex:
+            print(ex)
 
     return _jsons
 
