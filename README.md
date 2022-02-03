@@ -1,6 +1,11 @@
 # speedtest_docker
+
 run network speedtest every 10 minutes
+
+
 ![image](./graph.png)
+
+
 # How to run docker container
 1. make logs folder in root of your local repository
 1. build docker image
@@ -31,3 +36,18 @@ If you use docker container, skip installing requirements.txt
   ```shell
   python3 plot.py
   ```
+
+# Plot options
+```shell
+# python3 plot.py --help
+usage: plot.py [-h] [--verbose] [--csv] [--name NAME] [--method METHOD]
+
+plot network speed graph based on speedtest.net result
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --verbose, -v         verbose mode
+  --csv                 save result as csv file
+  --name NAME, -n NAME  csv file will be saved as this argument string(default: result.csv)
+  --method METHOD       select plot method. options: daily_average, raw_graph
+```
