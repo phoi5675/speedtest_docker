@@ -185,6 +185,7 @@ if __name__ == '__main__':
             make_daily_average(jsons, x_axis_timestamp, y_axis_download_spd, y_axis_upload_spd)
         elif args.method == 'raw_graph':
             make_axis_elem(jsons, x_axis_timestamp, y_axis_download_spd, y_axis_upload_spd)
+            plt.figure(figsize=(30, 7))
         else:
             raise WrongArgumentError(msg='No method type detected! see argument option for \'--method\'')
     except WrongArgumentError as err:
@@ -199,6 +200,7 @@ if __name__ == '__main__':
     y_upload_smoothed = gaussian_filter1d(y_axis_upload_spd, sigma=0.8)
 
     plt.title('Network speed test')
+
     plt.plot(x_axis_timestamp, y_download_smoothed,
              linewidth='2', label='Download speed')
     plt.plot(x_axis_timestamp, y_upload_smoothed,
